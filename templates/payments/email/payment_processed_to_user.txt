@@ -1,0 +1,8 @@
+{% include "account/email/do_not_reply.txt" %}
+
+Dear {{ user }},
+
+Your payment has now been processed.
+
+{{ obj_type }}: {% if obj_type == "Booking" %}{{ obj.event }}{% else %}{{ obj.name }}{% endif %}
+Invoice number: {{ invoice_id }}

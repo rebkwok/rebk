@@ -1,0 +1,197 @@
+.thumbnail-container {
+    width: 150px;
+    height: 150px;
+    overflow: hidden;
+    margin: 10px;
+    position: relative;
+    border: thin solid rgba(6, 105, 58, 0.5);
+    border-radius: 5%;
+}
+
+
+div.thumbnail-container > img {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  height: 100%;
+  width: auto;
+  -webkit-transform: translate(-50%,-50%);
+      -ms-transform: translate(-50%,-50%);
+          transform: translate(-50%,-50%);
+}
+div.thumbnail-container > img.portrait {
+  width: 100%;
+  height: auto;
+}
+
+.category.thumbnail-container {
+    box-shadow: 0 0 0 1px rgba(6, 105, 58, 0.6), 0 0 0 2px #fff, 0 0 0 4px rgba(6, 105, 58, 0.6);
+    border-radius: 2%;
+}
+
+.category.thumbnail-container.no-photos {
+    padding: 20px
+}
+.category-caption {
+    margin-left: 8px;
+}
+
+div.category.thumbnail-container > img {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 75px;
+  height: 75px;
+  border: solid thin lavender;
+}
+
+div.category.thumbnail-container > img.img-top-left {
+  -webkit-transform: translate(-100%,-100%);
+      -ms-transform: translate(-100%,-100%);
+          transform: translate(-100%,-100%);
+}
+div.category.thumbnail-container > img.img-top-right {
+  -webkit-transform: translate(-0%,-100%);
+      -ms-transform: translate(-0%,-100%);
+          transform: translate(-0%,-100%);
+}
+div.category.thumbnail-container > img.img-bottom-left {
+  -webkit-transform: translate(-100%,-0%);
+      -ms-transform: translate(-100%,-0%);
+          transform: translate(-100%,-0%);
+}
+div.category.thumbnail-container > img.img-bottom-right {
+  -webkit-transform: translate(-0%,-0%);
+      -ms-transform: translate(-0%,-0%);
+          transform: translate(-0%,-0%);
+}
+
+.gallery-tbl {
+    padding-top: 5px !important;
+    padding-bottom: 5px !important;
+    white-space: nowrap;
+    font-size: small;
+	vertical-align: middle !important;
+
+}
+
+.gallery-help {
+    font-size: smaller;
+    font-style: italic;
+    font-weight: normal;
+}
+
+.btn-group-vertical > .btn-gallery {
+    max-width: 200px;
+    white-space: normal;
+    font-size: 85%;
+    padding: 4px;
+    text-align: left;
+}
+
+.btn-group-vertical > .btn-gallery > .badge {
+    font-weight: normal;
+    font-size: 85%;
+    padding-top: 1px;
+    background-color: rgba(100,100,100, 1);
+}
+
+.btn-group-vertical > .btn-gallery.btn-gallery-active {
+    background-color: rgba(6, 105, 58, 1);
+    color: white;
+}
+
+.btn-group-vertical > .btn-gallery.btn-gallery-active > .badge {
+    background-color: #fff;
+    color: rgba(6, 105, 58, 1);
+    font-weight: bold;
+}
+
+.btn-gallery.btn-modal, .btn-gallery.btn-modal {
+    background-color: rgba(6, 105, 58, 1);
+    color: white;
+    height: 20px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    font-size: smaller;
+    font-weight: normal;
+}
+
+.gallery-count {
+    margin-left: 5px;
+    margin-top: 2px;
+}
+
+img.gallery-update-thumbnail {
+    height: auto;
+    max-width: 120px;
+}
+
+.new-inline-label {
+    margin-top: 20px;
+}
+
+.delete-checkbox {
+    display: none;
+}
+.delete-checkbox + label {
+    background-color: #fafafa;
+    border: 1px solid #cacece;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05);
+    padding: 9px;
+    border-radius: 3px;
+    display: inline-block;
+    position: relative;
+}
+.delete-checkbox + label:active, .delete-checkbox:checked + label:active {
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px 1px 3px rgba(0,0,0,0.1);
+}
+.delete-checkbox:checked + label {
+    background-color: #F5A9A9;
+    border: 1px solid #adb8c0;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05), inset 15px 10px -12px rgba(255,255,255,0.1);
+    color: #99a1a7;
+}
+.delete-checkbox:checked + label:after {
+    content: '\2714';
+    font-size: 14px;
+    position: absolute;
+    top: 0px;
+    left: 3px;
+    color: #000;
+}
+.delete-checkbox-disabled {
+    display: none;
+}
+.delete-checkbox-disabled + label {
+    background-color: #BDBDBD;
+    border: 1px solid #cacece;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05);
+    padding: 9px;
+    border-radius: 3px;
+    display: inline-block;
+    position: relative;
+}
+
+.gallery-update-group {
+    margin-top: 5px;
+}
+
+.bootstrap-filestyle.input-group {
+    margin-left: 13px;
+}
+
+.form-error {
+    color: red;
+}
+
+.form-error > input, .form-error > textarea, .form-error > .regular-checkbox + label {
+    border: 1px solid red;
+    background-color: rgba(255, 0, 0, 0.1);
+}
+
+.form-error > ul {
+    list-style: none;
+    font-size: small;
+    font-style: italic;
+}

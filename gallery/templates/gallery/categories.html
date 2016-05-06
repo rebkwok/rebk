@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block extra_head %}<link rel="stylesheet" href="{% static 'gallery/css/gallery.css' %}">{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <div class="page-header col-sm-12">
+        <h1>
+            Gallery Albums
+        </h1>
+    </div>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="panel panel-success">
+                    <form class="form-horizontal" method="post" action="">
+                    {% csrf_token %}
+                    <div class="table-responsive">
+                        <table class="table tablesorter" id="sortTable">
+                            <thead>
+                            <tr class="success">
+                                <th>Album Name</th>
+                                <th>Description</th>
+                                <th class="table-center">Number of images</th>
+                                <th class="table-center">Add/edit images</th>
+                                <th class="table-center">Delete album</br>and all attached images</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            {{ categories_formset.management_form }}
+                            {% for category in categories_formset %}
+                                <span class=hide>{{ category.id }}</span>
+                                {% if not category.instance.id %}
+                                    <tr>
+                                        <td class="gallery-tbl" colspan="6"><strong>Add New Album:</strong></td>
+                                    </tr>
+                                {% endif %}
+                                <tr>
+                                    <td class="gallery-tbl"><span {% if category.name.errors %}class="form-error"{% endif %}>{{ category.name }} {{ category.name.errors }}</span></td>
+                                    <td class="gallery-tbl"><span {% if category.description.errors %}class="form-error"{% endif %}>{{ category.description }}{{ category.description.errors }}</span></td>
+                                    <td class="gallery-tbl table-center" {% if category.instance.id %}id="cat_{{ category.instance.id }}_imagecount"{% endif %}>{% if category.instance.id %}{{ category.image_count }}{% endif %}</td>
+                                    <td class="gallery-tbl table-center">{% if category.instance.id %}
+                                        <a href="{% url 'gallery:edit_category' category.instance.id %}">
+                                            <span class="fa fa-pencil-square-o fa-lg"></span>
+                                        </a>
+                                        {% endif %}
+                                    </td>
+                                    <td class="gallery-tbl table-center">{{ category.DELETE }}<label for={{ category.DELETE_id }}></label>
+                                </tr>
+                            {% endfor %}
+                            <tr>
+                                <td class="gallery-tbl" colspan="6"><input class="btn btn-success" name="formset_submitted" type="submit" value="Save changes" /></td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+                    </form>
+
+                    </div>
+                </div>
+            </div>
+         </div>
+
+</div>
+
+
+
+{%  endblock %}
+
+
+{% block extra_scripts %}
+    <script src="{% static 'gallery/js/gallery.js' %}"></script>
+{% endblock %}

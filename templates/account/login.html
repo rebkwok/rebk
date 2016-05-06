@@ -1,0 +1,49 @@
+{% extends "account/base.html" %}
+
+{% load i18n %}
+{% load account socialaccount %}
+
+{% block head_title %}{% trans "Sign In" %}{% endblock %}
+
+{% block content %}
+
+<h1>{% trans "Sign In" %}</h1>
+
+{% get_providers as socialaccount_providers %}
+
+{% if socialaccount_providers  %}
+<p>{% blocktrans with site.name as site_name %}Please <strong>sign in</strong>. Or, <a href="{{ signup_url }}"><strong>sign up</strong></a>
+for a new account.{% endblocktrans %}</p></br>
+
+<div class="socialaccount_ballot">
+    <strong>Sign in with</strong>
+  <div class="socialaccount_providers btn btn-primary" style="list-style-type: none;">
+     {% include "socialaccount/snippets/provider_list.html" with process="login" %}
+ </div>
+  <p>If you have already created an account and would like to connect it with facebook, please sign in with your chosen username and password first and then go to Change Profile from the Your Accounts menu.</p>
+  </br></br>
+
+  <div class="login-or"><strong>{% trans 'Sign in with username and password:' %}</strong></div>
+    </br>
+
+</div>
+
+{% include "socialaccount/snippets/login_extra.html" %}
+
+{% else %}
+<p>{% blocktrans %}If you have not created an account yet, then please
+<a href="{{ signup_url }}">sign up</a> first.{% endblocktrans %}</p>
+{% endif %}
+
+<form class="login" method="POST" action="{% url 'account_login' %}">
+  {% csrf_token %}
+  {{ form.as_p }}
+  {% if redirect_field_value %}
+  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+  {% endif %}
+
+  <button class="primaryAction btn btn-success" type="submit">{% trans "Sign In" %}</button>
+  <p><a class="button secondaryAction" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a></p>
+</form>
+
+{% endblock %}

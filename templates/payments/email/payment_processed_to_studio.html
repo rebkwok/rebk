@@ -1,0 +1,12 @@
+{% extends 'email_base.html' %}
+
+{% block messagecontent %}
+<div style="font-family: sans-serif;">
+
+<p>User: {{ user }}</p>
+<p>Purchased: {% if obj_type == "Booking" %}{{ obj.event }}{% else %}{{ obj.name }}{% endif %} ({{ obj_type }})</p>
+<p>Invoice number: {{ invoice_id }}</p>
+<p>Paypal Transaction id: {{ paypal_transaction_id }}</p>
+
+</div>
+{% endblock %}

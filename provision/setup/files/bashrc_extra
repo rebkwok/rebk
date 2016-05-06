@@ -1,0 +1,13 @@
+export SRV_IP="$(ip -o -f inet addr show eth1 | awk -F ' +|/' '{print $4}')"
+cd /src/rebk
+. /src/rebk/venv/bin/activate
+
+echo "Application is running at 127.0.0.1:7100"
+export DJANGO_SETTINGS_MODULE=rebk.settings.base
+alias go="cd /src/rebk"
+alias venv=". /src/rebk/venv/bin/activate"
+alias runserver="cd /src/rebk
+venv
+echo 'Application is running at 127.0.0.1:7100'
+./manage.py runserver 0.0.0.0:16000 --settings=rebk.settings.base"
+

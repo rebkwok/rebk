@@ -1,0 +1,5 @@
+---
+virtualenv_path: /src/rebk/venv
+project_root_path: /src/rebk
+python3_path: /usr/bin/python3
+settings_path: rebk.settings.base

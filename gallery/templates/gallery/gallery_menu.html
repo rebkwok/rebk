@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block extra_head %}<link rel="stylesheet" href="{% static 'gallery/css/gallery.css' %}">{% endblock %}
+
+{% block content %}
+
+<div class="row container">
+    <div class="page-header col-sm-12">
+        <h1>
+            Gallery
+        </h1>
+        <p>Click on an album to see more</p>
+
+        {% if user.is_staff %}
+            <p>STAFF USERS ONLY: <a href="{% url 'gallery:categories' %}">View and edit Gallery</a></p>
+        {% endif %}
+    </div>
+
+    {% if categories %}
+
+        <div class="row">
+            {% for category in categories %}
+                {% if category.images.exists %}
+                    <div class="col-lg-2 col-md-2 col-sm-3 col-xs-5">
+                        <div>
+                            <a href="{% url 'gallery:category' category.slug %}">
+                                <div class="category thumbnail-container">
+                                    {% for image in category.images.all %}
+                                        {% if forloop.counter0 == 0 %}
+                                            <img class="img-top-left"
+                                                 src="{{ MEDIA_URL }}{{ image.photo.name }}"
+                                                 alt="{{ image.photo.name }}">
+                                        {% elif forloop.counter0 == 1 %}
+                                            <img class="img-top-right"
+                                                 src="{{ MEDIA_URL }}{{ image.photo.name }}"
+                                                 alt="{{ image.photo.name }}">
+                                        {% elif forloop.counter0 == 2 %}
+                                            <img class="img-bottom-left"
+                                                 src="{{ MEDIA_URL }}{{ image.photo.name }}"
+                                                 alt="{{ image.photo.name }}">
+                                        {% elif forloop.counter0 == 3 %}
+                                            <img class="img-bottom-right"
+                                                 src="{{ MEDIA_URL }}{{ image.photo.name }}"
+                                                 alt="{{ image.photo.name }}">
+                                        {% endif %}
+                                    {% endfor %}
+                                    {% if category.images.count < 4 %}
+                                        {% if category.images.count <= 3 %}
+                                            <img class="img-bottom-right"
+                                                     src="{% static 'gallery/images/logo.png' %}"
+                                                     alt="placeholder logo image">
+                                        {% endif %}
+                                        {% if category.images.count <= 2 %}
+                                            <img class="img-bottom-left"
+                                                     src="{% static 'gallery/images/logo.png' %}"
+                                                     alt="placeholder logo image">
+                                        {% endif %}
+                                        {% if category.images.count == 1 %}
+                                            <img class="img-top-right"
+                                                     src="{% static 'gallery/images/logo.png' %}"
+                                                     alt="placeholder logo image">
+                                        {% endif %}
+                                    {% endif %}
+                                    </div>
+                            </a>
+                        </div>
+                        <div class="category-caption"><strong>{{ category.name }}</strong></div>
+                    </div>
+
+                {% else %}
+                    <div class="col-lg-2 col-md-2 col-sm-3 col-xs-5">
+                        <div class="category thumbnail-container no-photos">
+                            No photos in this album yet
+                        </div>
+                        <div class="category-caption"><strong>{{ category.name }}</strong></div>
+                    </div>
+
+                {% endif %}
+            {% endfor %}
+        </div>
+
+    {% else %}
+        <div class="col-sm-12">Coming soon</div>
+
+    {% endif %}
+
+</div>
+
+
+
+{%  endblock %}

@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block extra_head %}<link rel="stylesheet" href="{% static 'gallery/css/gallery.css' %}">{% endblock %}
+
+{% block content %}
+
+<div class="row container">
+    <div class="col-sm-12">
+        <h1>
+            <a href="{% url 'gallery:gallery' %}">Gallery</a>: {{ category }}
+        </h1>
+
+            <h4>{% if category.description %}{{ category.description }}{% endif %}</h4>
+
+    {% if user.is_staff %}
+            <p>STAFF USERS ONLY: <a href="{% url 'gallery:edit_category' category.id %}">Edit this album</a></p>
+        {% endif %}
+    </div>
+
+    <span class="divider"></span>
+
+
+    {% if images %}
+        <p class="gallery-help">Click on thumbnails to enlarge</p>
+            <div class="col-sm-8 col-md-9">
+
+                    {% for image in images %}
+                        <div class="col-lg-3 col-md-4 col-xs-6">
+                        <a href="#"
+                           class="gallery-thumbnail"
+                           data-image-id=""
+                           data-toggle="modal"
+                           data-title="{{ image.category }}"
+                           data-caption="{{ image.caption }}"
+                           data-image="{{ MEDIA_URL }}{{ image.photo.name }}"
+                           data-target="#image-gallery">
+                            <div class="thumbnail-container">
+                                <img
+                                     src="{{ MEDIA_URL }}{{ image.photo.name }}"
+                                     alt="{{ image.photo.name }}">
+                            </div>
+                        </a>
+                    </div>
+                    {% endfor %}
+
+                <div class="modal fade" id="image-gallery" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                                <h4 class="modal-title" id="image-gallery-title"></h4>
+                            </div>
+                            <div class="modal-body">
+                                <img id="image-gallery-image" class="img-responsive" src="">
+                            </div>
+                            <div class="modal-footer">
+
+                                <div class="pull-left">
+                                    <button type="button" class="btn btn-gallery btn-modal" id="show-previous-image">Previous</button>
+                                </div>
+
+                                <div class="col-xs-8 text-justify" id="image-gallery-caption">
+                                    This text will be overwritten by jQuery
+                                </div>
+
+                                <div class="pull-right">
+                                    <button type="button" id="show-next-image" class="btn btn-gallery btn-modal">Next</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+    {% else %}
+    <div class="col-sm-12">No photos in this album yet</div>
+
+    {% endif %}
+
+</div>
+
+
+
+{%  endblock %}
+
+
+{% block extra_scripts %}
+    <script src="{% static 'gallery/js/gallery.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% load static %}
+{% load gallerytags %}
+
+{% block extra_head %}<link rel="stylesheet" href="{% static 'gallery/css/gallery.css' %}">{% endblock %}
+
+{% block content %}
+
+{{ form.media }}
+
+<div class="extra-top-margin container-fluid row">
+    <div class="col-sm-12">
+        <h2 class="page-header">Album: {{ category.name }}</h2>
+
+            <div class="panel-body">
+                {% if form.errors %}
+                    <div class="form-error">
+                        <p>The operation could not be performed because one or more error(s) occurred.<br />Please resubmit the form after making the following changes:</p>
+                        <ul>
+                        {% for field in form %}
+                        {% if field.errors %}<li>{{ field.name|format_field_name }}: {{ field.errors|striptags }}</li>{% endif %}
+                        {% endfor %}
+                        </ul>
+                    </div>
+                    {% endif %}
+
+                <form class="form-horizontal col-xs-12" enctype="multipart/form-data" method="post" action="">
+                    {% csrf_token %}
+
+                    <span class="hide">{{ form }}</span>
+
+                        {{ image_formset.management_form }}
+
+                        {% for image in image_formset %}
+                                <span class="hide">{{ image.id }}</span>
+                            <div class="form-group col-xs-12">
+                                    {% if not image.instance.id %}
+                                        <div class="new-inline-label gallery-update-group col-md-6 col-sm-12">
+                                            <h4>Add new picture:</h4>
+                                        </div>
+                                    {% endif %}
+                                    <div class="gallery-update-group col-md-6 col-sm-12">
+                                    {{ image.photo }}{{ image.photo.help_text }}</div>
+                                    <div class="gallery-update-group col-md-6 col-sm-12">
+                                        <label>{{ image.caption.label }}</label>
+                                        {{ image.caption }}{{ image.caption.help_text }}
+                                    </div>
+                                    {% if image.instance.id %}
+                                        <div class="gallery-update-group col-md-6 col-sm-12">
+                                            <label>URL:</label> {{ request.META.HTTP_HOST }}{{ image.instance.photo.url }}</br>
+                                            <label>{{ image.DELETE.label }}</label>
+                                            <div class="delete-label">{{ image.DELETE }}<label class="delete-label" for={{ image.DELETE_id }}></label>
+                                            <span class="gallery-help delete-label">{{ image.DELETE.help_text }}</span>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                            </div>
+                            {% if not forloop.last %}<div class="divider form-group"></div>{% endif %}
+                        {% endfor %}
+
+                    <div class="form-group gallery-update-group">
+                        <div class="divider"></div></br>
+                        <div class="col-sm-9">
+                            <button type="submit" class="btn btn-success">Save changes</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+{% endblock content %}
+
+{% block extra_scripts %}
+        <script type="text/javascript" src="{% static 'gallery/js/bootstrap-filestyle.min.js' %}"> </script>
+{% endblock %}
